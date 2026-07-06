@@ -1,0 +1,25 @@
+<svg width="840" height="180" viewBox="0 0 840 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="840" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="0.5" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <!-- fan-out mark: one node branching into four agents -->
+  <g stroke="url(#g)" stroke-width="3" stroke-linecap="round">
+    <line x1="70" y1="90" x2="150" y2="30"/>
+    <line x1="70" y1="90" x2="150" y2="70"/>
+    <line x1="70" y1="90" x2="150" y2="110"/>
+    <line x1="70" y1="90" x2="150" y2="150"/>
+  </g>
+  <circle cx="70" cy="90" r="11" fill="url(#g)"/>
+  <circle cx="150" cy="30" r="7" fill="#7c3aed"/>
+  <circle cx="150" cy="70" r="7" fill="#5b5bd6"/>
+  <circle cx="150" cy="110" r="7" fill="#3b82f6"/>
+  <circle cx="150" cy="150" r="7" fill="#06b6d4"/>
+  <text x="200" y="98" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+        font-size="46" font-weight="700" fill="url(#g)">fanout</text>
+  <text x="202" y="132" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+        font-size="16" fill="#8b949e">multi-agent orchestration for any model CLI</text>
+</svg>

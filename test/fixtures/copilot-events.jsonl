@@ -1,0 +1,8 @@
+{"type":"session.start","data":{},"id":"00000000-0000-0000-0000-000000000001","timestamp":"2026-01-01T00:00:00.000Z"}
+{"type":"session.mcp_servers_loaded","data":{"servers":[{"name":"github-mcp-server","status":"connected","source":"builtin","transport":"http"}]},"id":"00000000-0000-0000-0000-000000000002","timestamp":"2026-01-01T00:00:00.100Z","ephemeral":true}
+{"type":"user.message","data":{"role":"user","content":"Reply with exactly the single word: PONG"},"id":"00000000-0000-0000-0000-000000000003","timestamp":"2026-01-01T00:00:00.200Z"}
+{"type":"assistant.turn_start","data":{"turnId":"0"},"id":"00000000-0000-0000-0000-000000000004","timestamp":"2026-01-01T00:00:00.300Z"}
+{"type":"assistant.message","data":{"messageId":"00000000-0000-0000-0000-00000000000a","model":"synthetic-model","content":"Working on it.","toolRequests":[],"turnId":"0","outputTokens":60},"id":"00000000-0000-0000-0000-000000000005","timestamp":"2026-01-01T00:00:00.400Z"}
+{"type":"assistant.message","data":{"messageId":"00000000-0000-0000-0000-00000000000b","model":"synthetic-model","content":"PONG","toolRequests":[],"turnId":"0","outputTokens":49},"id":"00000000-0000-0000-0000-000000000006","timestamp":"2026-01-01T00:00:00.500Z"}
+{"type":"assistant.turn_end","data":{"turnId":"0"},"id":"00000000-0000-0000-0000-000000000007","timestamp":"2026-01-01T00:00:00.600Z"}
+{"type":"session.shutdown","data":{},"id":"00000000-0000-0000-0000-000000000008","timestamp":"2026-01-01T00:00:00.700Z"}

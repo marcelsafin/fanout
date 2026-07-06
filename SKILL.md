@@ -1,11 +1,11 @@
 ---
-name: workflows
+name: fanout
 description: >-
   Deterministic multi-agent workflow orchestration engine (1:1 port of Claude
   Code's Workflow tool) for GitHub Copilot CLI. Use ONLY when the user
   explicitly opts into multi-agent orchestration: says "workflow", "run a
   workflow", "fan out agents", "orchestrate with subagents", "ultracode", or
-  invokes /workflows. Author a script with agent()/parallel()/pipeline()/
+  invokes /fanout. Author a script with agent()/parallel()/pipeline()/
   phase()/log()/args/budget/workflow(), run it with engine.mjs, resume
   interrupted runs from the journal. Workflows can spawn dozens of agents and
   consume many premium requests — the user must request that scale, not have
@@ -22,7 +22,7 @@ adversarial checks before committing), or to take on scale one context can't
 hold (migrations, audits, broad sweeps). The script encodes that structure:
 what fans out, what verifies, what synthesizes.
 
-**Engine:** `~/.copilot/skills/workflows/engine.mjs` (Node ≥ 18, zero deps).
+**Engine:** `~/.copilot/skills/fanout/engine.mjs` (Node ≥ 18, zero deps).
 Each `agent()` call spawns a `copilot -p` subagent.
 
 ## When to use
@@ -41,15 +41,15 @@ know the shape before the *task* — only before the *orchestration step*.
 ## Running
 
 ```bash
-node ~/.copilot/skills/workflows/engine.mjs run <script.mjs> \
+node ~/.copilot/skills/fanout/engine.mjs run <script.mjs> \
   [--args '<json>' | --args @file.json]   # exposed verbatim as `args` in the script
   [--budget <tokens>]                     # hard token ceiling → `budget` in the script
   [--resume <runId>]                      # replay cached prefix, run the rest live
   [--model <m>] [--effort <level>]        # defaults for all agents (omit to inherit)
   [--max-concurrency <n>] [-C <dir>] [--runs-dir <dir>]
 
-node ~/.copilot/skills/workflows/engine.mjs list              # all runs + status
-node ~/.copilot/skills/workflows/engine.mjs journal <runId>   # each agent's actual return value
+node ~/.copilot/skills/fanout/engine.mjs list              # all runs + status
+node ~/.copilot/skills/fanout/engine.mjs journal <runId>   # each agent's actual return value
 ```
 
 Final result prints as JSON on stdout (`{runId, ok, result, agents, tokens}`);
@@ -125,8 +125,8 @@ return { flaky }
   `--budget`. The target is a HARD ceiling: once `spent()` reaches `total`,
   further `agent()` calls throw. `remaining()` is `Infinity` with no target.
 - `workflow(nameOrRef, args?) → Promise<any>` — run another workflow inline
-  and return its return value. Name resolves from `.copilot/workflows/<name>.mjs`
-  (project) then `~/.copilot/workflows/<name>.mjs`; or pass `{scriptPath}`.
+  and return its return value. Name resolves from `.copilot/fanout/<name>.mjs`
+  (project) then `~/.copilot/fanout/<name>.mjs`; or pass `{scriptPath}`.
   The child shares the concurrency cap, agent counter, budget, and journal.
   Nesting is ONE level only. Throws on unknown name / child syntax error.
 
@@ -242,7 +242,7 @@ adversarial pass, synthesis stage.
 ## Resume
 
 Every run persists `script.mjs`, `meta.json`, `journal.jsonl`, and
-`agent-<id>.jsonl` under `~/.copilot/workflows/runs/<runId>/`. After a pause,
+`agent-<id>.jsonl` under `~/.copilot/fanout/runs/<runId>/`. After a pause,
 kill, or script edit, relaunch with `--resume <runId>` (pointing at the edited
 script file): the longest unchanged prefix of `agent()` calls — matched by
 call order + (prompt, opts) — returns cached results instantly; the first
@@ -295,7 +295,7 @@ misbehaving backend can never take over the user's terminal.
 - **Worktree**: kept when the agent left uncommitted changes OR new commits
   (HEAD moved); reset to fresh between retry attempts; cleanup runs on every
   exit path.
-- **Live view**: `engine.mjs watch <runId>` — the /workflows equivalent
+- **Live view**: `engine.mjs watch <runId>` — the /fanout equivalent
   (phase-grouped tree, refreshes until the run finishes).
 - **Background runs**: `engine.mjs run <script> --bg` — detached, logs to
   `<runDir>/out.log`, macOS notification on completion/failure
@@ -304,6 +304,6 @@ misbehaving backend can never take over the user's terminal.
 Self-test (real Copilot backend, one cheap agent, raw output shown):
 
 ```bash
-node ~/.copilot/skills/workflows/engine.mjs doctor
-node ~/.copilot/skills/workflows/engine.mjs run ~/.copilot/skills/workflows/examples/ping.mjs
+node ~/.copilot/skills/fanout/engine.mjs doctor
+node ~/.copilot/skills/fanout/engine.mjs run ~/.copilot/skills/fanout/examples/ping.mjs
 ```

@@ -24,7 +24,7 @@ import { spawn, execSync } from 'node:child_process';
 // ---------------------------------------------------------------- utilities
 
 const HOME = os.homedir();
-const DEFAULT_RUNS_DIR = path.join(HOME, '.copilot', 'workflows', 'runs');
+const DEFAULT_RUNS_DIR = path.join(HOME, '.copilot', 'fanout', 'runs');
 const AGENT_LIFETIME_CAP = 1000;
 const ITEM_CAP = 4096;
 const SPAWN_RETRIES = 2;   // retries on backend failure

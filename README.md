@@ -86,8 +86,8 @@ return { verified }
 ## Install
 
 ```bash
-git clone https://github.com/marcelsafin/fanout ~/.copilot/skills/workflows
-cd ~/.copilot/skills/workflows
+git clone https://github.com/marcelsafin/fanout ~/.copilot/skills/fanout
+cd ~/.copilot/skills/fanout
 node engine.mjs doctor    # one cheap agent, verifies the wiring
 node engine.mjs run examples/ping.mjs
 ```

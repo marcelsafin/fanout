@@ -1,7 +1,7 @@
 // Canonical multi-stage review: pipeline by default — each dimension's findings
 // verify as soon as its review completes. Run from the repo you want reviewed:
-//   node ~/.copilot/skills/workflows/engine.mjs run \
-//     ~/.copilot/skills/workflows/examples/review-changes.mjs -C . --args '"HEAD~1..HEAD"'
+//   node ~/.copilot/skills/fanout/engine.mjs run \
+//     ~/.copilot/skills/fanout/examples/review-changes.mjs -C . --args '"HEAD~1..HEAD"'
 export const meta = {
   name: 'review-changes',
   description: 'Review a git range across dimensions, adversarially verify each finding',

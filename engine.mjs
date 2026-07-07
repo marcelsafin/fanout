@@ -604,7 +604,8 @@ async function executeScript(scriptFile, argsValue, state, depth) {
   const { meta } = parseMeta(source, path.basename(scriptFile));
   const body = source.replace(/export\s+const\s+meta\s*=/, 'const meta =');
 
-  const sandbox = { console: { log: m => process.stderr.write(`• ${m}\n`), error: m => process.stderr.write(`! ${m}\n`) } };
+  // URL is a Node global, not a JS intrinsic — expose it so scripts can normalize links.
+  const sandbox = { console: { log: m => process.stderr.write(`• ${m}\n`), error: m => process.stderr.write(`! ${m}\n`) }, URL, URLSearchParams };
   const context = vm.createContext(sandbox);
   vm.runInContext(SANDBOX_PRELUDE, context, { filename: 'prelude' });
 

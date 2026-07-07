@@ -66,6 +66,10 @@ OUT=$(run wf-bad-meta.mjs)
 check "meta must be a pure literal — identifier reference rejected" \
   "r.ok===false && /pure literal/.test(r.error)" "$OUT"
 
+OUT=$(run wf-url.mjs)
+check "sandbox exposes URL + URLSearchParams" \
+  "r.ok && r.result.host==='www.example.com' && r.result.q==='1'" "$OUT"
+
 OUT=$(run wf-dup.mjs)
 DUPRID=$(node -e "console.log(JSON.parse(require('fs').readFileSync(0,'utf8')).runId)" <<< "$OUT")
 OUT=$(run wf-dup.mjs --resume "$DUPRID")
